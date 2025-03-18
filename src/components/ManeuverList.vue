@@ -3,6 +3,8 @@
         <ManeuverQuestionnaire v-if="!filtersComplete" @complete="handleFiltersComplete" />
 
         <div v-else>
+            <ResetQuestionnaireButton @reset="resetQuestionnaire" />
+
             <div v-if="loading" class="loading">
                 <LoadingState message="Chargement des manœuvres..." />
             </div>
@@ -27,6 +29,7 @@ import ManeuverCard from './ManeuverCard.vue';
 import ManeuverQuestionnaire from './ManeuverQuestionnaire.vue';
 import LoadingState from './states/LoadingState.vue';
 import ErrorState from './states/ErrorState.vue';
+import ResetQuestionnaireButton from './ResetQuestionnaireButton.vue';
 
 const maneuvers = ref<Maneuver[]>([]);
 const loading = ref(true);
@@ -56,7 +59,15 @@ const handleFiltersComplete = (filters: ManeuverFilters) => {
     fetchManeuvers();
 };
 
-
+const resetQuestionnaire = () => {
+    filtersComplete.value = false;
+    currentFilters.value = {
+        themeType: null,
+        duration: null,
+        peopleCount: null
+    };
+    maneuvers.value = [];
+};
 </script>
 
 <style scoped>
@@ -64,6 +75,7 @@ const handleFiltersComplete = (filters: ManeuverFilters) => {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    position: relative;
 }
 
 .maneuvers-grid {

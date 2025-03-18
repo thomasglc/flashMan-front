@@ -106,7 +106,6 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'peopleCount');
 
 .question {
     font-size: 1.5rem;
-    color: #2d3748;
     margin-bottom: 2rem;
     text-align: center;
 }
