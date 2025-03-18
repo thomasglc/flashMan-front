@@ -1,56 +1,34 @@
 <template>
     <div class="questionnaire" v-if="!isComplete">
-        <div class="question-container" :class="{ 'slide-enter': showQuestion }">
-            <h2 class="question">{{ currentQuestion }}</h2>
+        <QuestionStyles>
+            <div class="question-container" :class="{ 'slide-enter': showQuestion }">
+                <h2 class="question">{{ currentQuestion }}</h2>
 
-            <!-- Question 1: Type de manœuvre -->
-            <div v-if="currentStep === 1" class="options theme-options">
-                <div v-if="loadingThemes" class="loading-themes">
-                    Chargement des types de manœuvres...
-                </div>
-                <div v-else-if="themeError" class="error-message">
-                    {{ themeError }}
-                </div>
-                <template v-else>
-                    <button v-for="theme in themes" :key="theme.id" class="option-btn"
-                        :class="{ 'selected': filters.themeType === theme.name }" @click="selectTheme(theme.name)">
-                        {{ theme.name }}
+                <ThemeQuestion v-if="currentStep === 1" v-model="filters.themeType" @update:modelValue="selectTheme" />
+
+                <DurationQuestion v-if="currentStep === 2" v-model="filters.duration"
+                    @update:modelValue="selectDuration" />
+
+                <PeopleCountQuestion v-if="currentStep === 3" v-model="filters.peopleCount"
+                    @update:modelValue="selectPeopleCount" />
+
+                <div class="navigation">
+                    <button v-if="currentStep > 1" class="nav-btn back" @click="previousStep">
+                        <i class="fas fa-arrow-left"></i> Précédent
                     </button>
-                </template>
+                </div>
             </div>
-
-            <!-- Question 2: Durée -->
-            <div v-if="currentStep === 2" class="options duration-options">
-                <button v-for="duration in durations" :key="duration" class="option-btn"
-                    :class="{ 'selected': filters.duration === duration }"
-                    @click="selectDuration(duration as Duration)">
-                    {{ duration === 30 ? '30+ min' : duration + ' min' }}
-                </button>
-            </div>
-
-            <!-- Question 3: Nombre de personnes -->
-            <div v-if="currentStep === 3" class="options people-options">
-                <button v-for="count in peopleCounts" :key="count" class="option-btn"
-                    :class="{ 'selected': filters.peopleCount === (typeof count === 'string' ? 5 : count) }"
-                    @click="selectPeopleCount(typeof count === 'string' ? 5 : count)">
-                    {{ count }} {{ typeof count === 'number' && count === 1 ? 'personne' : 'personnes' }}
-                </button>
-            </div>
-
-            <div class="navigation">
-                <button v-if="currentStep > 1" class="nav-btn back" @click="previousStep">
-                    <i class="fas fa-arrow-left"></i> Précédent
-                </button>
-            </div>
-        </div>
+        </QuestionStyles>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import type { ManeuverFilters, Duration } from '@/types/filters';
-import type { ThemeType } from '@/types/theme';
-import { themeService } from '@/services/themeService';
+import ThemeQuestion from './questionnaire/ThemeQuestion.vue';
+import DurationQuestion from './questionnaire/DurationQuestion.vue';
+import PeopleCountQuestion from './questionnaire/PeopleCountQuestion.vue';
+import QuestionStyles from './questionnaire/QuestionStyles.vue';
 
 const emit = defineEmits<{
     (e: 'complete', filters: ManeuverFilters): void;
@@ -59,18 +37,12 @@ const emit = defineEmits<{
 const currentStep = ref(1);
 const showQuestion = ref(true);
 const isComplete = ref(false);
-const themes = ref<ThemeType[]>([]);
-const loadingThemes = ref(true);
-const themeError = ref<string | null>(null);
 
 const filters = ref<ManeuverFilters>({
     themeType: null,
     duration: null,
     peopleCount: null
 });
-
-const durations = [5, 10, 20, 30] as const;
-const peopleCounts = [1, 2, 3, 4, '5+'] as const;
 
 const currentQuestion = computed(() => {
     switch (currentStep.value) {
@@ -83,22 +55,6 @@ const currentQuestion = computed(() => {
         default:
             return '';
     }
-});
-
-const fetchThemes = async () => {
-    try {
-        loadingThemes.value = true;
-        themeError.value = null;
-        themes.value = await themeService.getAll();
-    } catch (e) {
-        themeError.value = e instanceof Error ? e.message : 'Une erreur est survenue lors du chargement des types de manœuvres';
-    } finally {
-        loadingThemes.value = false;
-    }
-};
-
-onMounted(() => {
-    fetchThemes();
 });
 
 const nextStep = async () => {
@@ -120,20 +76,14 @@ const previousStep = async () => {
     showQuestion.value = true;
 };
 
-const selectTheme = async (theme: string) => {
-    filters.value.themeType = theme;
+const handleSelect = async <T>(value: T, key: keyof ManeuverFilters) => {
+    (filters.value[key] as T) = value;
     await nextStep();
 };
 
-const selectDuration = async (duration: Duration) => {
-    filters.value.duration = duration;
-    await nextStep();
-};
-
-const selectPeopleCount = async (count: number) => {
-    filters.value.peopleCount = count;
-    await nextStep();
-};
+const selectTheme = (theme: string) => handleSelect(theme, 'themeType');
+const selectDuration = (duration: Duration) => handleSelect(duration, 'duration');
+const selectPeopleCount = (count: number) => handleSelect(count, 'peopleCount');
 </script>
 
 <style scoped>
@@ -159,48 +109,6 @@ const selectPeopleCount = async (count: number) => {
     color: #2d3748;
     margin-bottom: 2rem;
     text-align: center;
-}
-
-.loading-themes,
-.error-message {
-    text-align: center;
-    color: #4a5568;
-    font-size: 1rem;
-    margin: 2rem 0;
-}
-
-.error-message {
-    color: #e53e3e;
-}
-
-.options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.option-btn {
-    padding: 0.75rem 1.5rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    background-color: white;
-    color: #4a5568;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.option-btn:hover {
-    border-color: #4299e1;
-    color: #4299e1;
-}
-
-.option-btn.selected {
-    background-color: #4299e1;
-    border-color: #4299e1;
-    color: white;
 }
 
 .navigation {

@@ -56,11 +56,7 @@ const handleFiltersComplete = (filters: ManeuverFilters) => {
     fetchManeuvers();
 };
 
-onMounted(() => {
-    if (filtersComplete.value) {
-        fetchManeuvers();
-    }
-});
+
 </script>
 
 <style scoped>
