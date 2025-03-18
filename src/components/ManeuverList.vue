@@ -1,13 +1,15 @@
 <template>
     <div class="maneuver-list">
-        <h2>Liste des manœuvres</h2>
+        <ManeuverQuestionnaire v-if="!filtersComplete" @complete="handleFiltersComplete" />
 
-        <LoadingState v-if="loading" message="Chargement des manœuvres..." />
+        <div v-else>
+            <div v-if="loading" class="loading">
+                <LoadingState message="Chargement des manœuvres..." />
+            </div>
 
-        <ErrorState v-else-if="error" :message="error" />
-
-        <div v-else class="maneuvers">
-            <EmptyState v-if="maneuvers.length === 0" message="Aucune manœuvre trouvée." />
+            <div v-else-if="error" class="error">
+                <ErrorState :message="error" />
+            </div>
 
             <div v-else class="maneuvers-grid">
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
@@ -17,23 +19,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { maneuverService } from '@/services/maneuverService';
 import type { Maneuver } from '@/types/maneuver';
+import type { ManeuverFilters } from '@/types/filters';
 import ManeuverCard from './ManeuverCard.vue';
+import ManeuverQuestionnaire from './ManeuverQuestionnaire.vue';
 import LoadingState from './states/LoadingState.vue';
 import ErrorState from './states/ErrorState.vue';
-import EmptyState from './states/EmptyState.vue';
 
 const maneuvers = ref<Maneuver[]>([]);
 const loading = ref(true);
 const error = ref<string | null>(null);
+const filtersComplete = ref(false);
+const currentFilters = ref<ManeuverFilters>({
+    themeType: null,
+    duration: null,
+    peopleCount: null
+});
 
 const fetchManeuvers = async () => {
     try {
         loading.value = true;
         error.value = null;
-        maneuvers.value = await maneuverService.getAllManeuvers();
+        maneuvers.value = await maneuverService.getAll();
     } catch (e) {
         error.value = e instanceof Error ? e.message : 'Une erreur est survenue';
     } finally {
@@ -41,34 +50,36 @@ const fetchManeuvers = async () => {
     }
 };
 
-onMounted(() => {
+const handleFiltersComplete = (filters: ManeuverFilters) => {
+    currentFilters.value = filters;
+    filtersComplete.value = true;
     fetchManeuvers();
+};
+
+onMounted(() => {
+    if (filtersComplete.value) {
+        fetchManeuvers();
+    }
 });
 </script>
 
 <style scoped>
 .maneuver-list {
-    padding: 1.5rem;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
-}
-
-h2 {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    font-weight: 600;
+    padding: 2rem;
 }
 
 .maneuvers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-@media (max-width: 640px) {
-    .maneuvers-grid {
-        grid-template-columns: 1fr;
-    }
+.loading,
+.error {
+    text-align: center;
+    margin-top: 2rem;
 }
 </style>
