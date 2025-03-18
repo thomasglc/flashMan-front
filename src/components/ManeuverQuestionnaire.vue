@@ -1,7 +1,7 @@
 <template>
     <div class="questionnaire" v-if="!isComplete">
         <QuestionStyles>
-            <SlideTransition>
+            <SlideTransition :is-reverse="isReverse">
                 <div :key="currentStep" class="question-container">
                     <h2 class="question">{{ currentQuestion }}</h2>
 
@@ -40,6 +40,7 @@ const emit = defineEmits<{
 
 const currentStep = ref(1);
 const isComplete = ref(false);
+const isReverse = ref(false);
 
 const filters = ref<ManeuverFilters>({
     themeType: null,
@@ -61,6 +62,7 @@ const currentQuestion = computed(() => {
 });
 
 const nextStep = async () => {
+    isReverse.value = false;
     if (currentStep.value < 3) {
         currentStep.value++;
     } else {
@@ -70,6 +72,7 @@ const nextStep = async () => {
 };
 
 const previousStep = () => {
+    isReverse.value = true;
     currentStep.value--;
 };
 
@@ -97,7 +100,6 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'peopleCount');
 
 .question {
     font-size: 1.5rem;
-    color: #2d3748;
     margin-bottom: 2rem;
     text-align: center;
 }
