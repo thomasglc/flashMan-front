@@ -1,6 +1,6 @@
 <template>
     <div class="maneuver-list">
-        <ManeuverQuestionnaire v-if="!filtersComplete" @complete="handleFiltersComplete" />
+        <ManeuverQuestionnaire v-if="!filtersStore.filtersComplete" @complete="handleFiltersComplete" />
 
         <div v-else>
             <ResetQuestionnaireButton @reset="resetQuestionnaire" />
@@ -30,16 +30,12 @@ import ManeuverQuestionnaire from './ManeuverQuestionnaire.vue';
 import LoadingState from './states/LoadingState.vue';
 import ErrorState from './states/ErrorState.vue';
 import ResetQuestionnaireButton from './ResetQuestionnaireButton.vue';
+import { useFiltersStore } from '@/stores/filtersStore';
 
 const maneuvers = ref<Maneuver[]>([]);
 const loading = ref(true);
 const error = ref<string | null>(null);
-const filtersComplete = ref(false);
-const currentFilters = ref<ManeuverFilters>({
-    themeType: null,
-    duration: null,
-    peopleCount: null
-});
+const filtersStore = useFiltersStore();
 
 const fetchManeuvers = async () => {
     try {
@@ -54,20 +50,20 @@ const fetchManeuvers = async () => {
 };
 
 const handleFiltersComplete = (filters: ManeuverFilters) => {
-    currentFilters.value = filters;
-    filtersComplete.value = true;
+    filtersStore.setFilters(filters);
     fetchManeuvers();
 };
 
 const resetQuestionnaire = () => {
-    filtersComplete.value = false;
-    currentFilters.value = {
-        themeType: null,
-        duration: null,
-        peopleCount: null
-    };
+    filtersStore.resetFilters();
     maneuvers.value = [];
 };
+
+onMounted(() => {
+    if (filtersStore.filtersComplete) {
+        fetchManeuvers();
+    }
+});
 </script>
 
 <style scoped>

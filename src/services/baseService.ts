@@ -11,7 +11,7 @@ export abstract class BaseService<T> {
         return response.data.data;
     }
 
-    async getById(id: number): Promise<T> {
+    async getById(id: number | string | string[]): Promise<T> {
         const response = await httpClient.get<SingleApiResponse<T>>(`${this.endpoint}/${id}`);
         return response.data.data;
     }

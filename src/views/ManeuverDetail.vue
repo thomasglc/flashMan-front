@@ -60,7 +60,7 @@ const fetchManeuver = async () => {
     try {
         loading.value = true;
         error.value = null;
-        maneuver.value = await maneuverService.getManeuverById(id);
+        maneuver.value = await maneuverService.getById(id);
     } catch (e) {
         error.value = e instanceof Error ? e.message : 'Une erreur est survenue';
     } finally {
