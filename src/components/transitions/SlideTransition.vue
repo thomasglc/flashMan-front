@@ -25,7 +25,7 @@ defineProps<{
 .slide-leave-active,
 .slide-reverse-enter-active,
 .slide-reverse-leave-active {
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
 }
 
 .slide-enter-from {
