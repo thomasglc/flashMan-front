@@ -13,7 +13,7 @@ class ManeuverService extends BaseService<Maneuver> {
   async getAll(filters?: ManeuverFilters): Promise<Maneuver[]> {
     const query = qs.stringify({
       filters: {
-        // themeType: filters?.themeType ? { $eq: filters.themeType } : undefined,
+        theme_types: filters?.themeType ? { name: { $eq: filters.themeType } } : undefined,
         duration: filters?.duration ? { $eq: filters.duration } : undefined,
         people: filters?.people ? { $eq: filters.people } : undefined,
       }
