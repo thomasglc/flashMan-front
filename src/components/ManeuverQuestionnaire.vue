@@ -11,8 +11,9 @@
                     <DurationQuestion v-if="currentStep === 2" v-model="filters.duration"
                         @update:modelValue="selectDuration" />
 
-                    <PeopleCountQuestion v-if="currentStep === 3" v-model="filters.peopleCount"
+                    <PeopleCountQuestion v-if="currentStep === 3" v-model="filters.people"
                         @update:modelValue="selectPeopleCount" />
+
 
                     <div class="navigation">
                         <button v-if="currentStep > 1" class="nav-btn back" @click="previousStep">
@@ -33,6 +34,7 @@ import DurationQuestion from './questionnaire/DurationQuestion.vue';
 import PeopleCountQuestion from './questionnaire/PeopleCountQuestion.vue';
 import QuestionStyles from './questionnaire/QuestionStyles.vue';
 import SlideTransition from './transitions/SlideTransition.vue';
+import SelectedFilters from './questionnaire/SelectedFilters.vue';
 
 const emit = defineEmits<{
     (e: 'complete', filters: ManeuverFilters): void;
@@ -45,7 +47,7 @@ const isReverse = ref(false);
 const filters = ref<ManeuverFilters>({
     themeType: null,
     duration: null,
-    peopleCount: null
+    people: null
 });
 
 const currentQuestion = computed(() => {
@@ -83,7 +85,7 @@ const handleSelect = async <T extends string | number | Duration>(value: T, key:
 
 const selectTheme = (theme: string) => handleSelect(theme, 'themeType');
 const selectDuration = (duration: Duration) => handleSelect(duration, 'duration');
-const selectPeopleCount = (count: number) => handleSelect(count, 'peopleCount');
+const selectPeopleCount = (count: number) => handleSelect(count, 'people');
 </script>
 
 <style scoped>

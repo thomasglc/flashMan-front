@@ -7,7 +7,7 @@ export const useFiltersStore = defineStore('filters', {
         currentFilters: {
             themeType: null,
             duration: null,
-            peopleCount: null
+            people: null
         } as ManeuverFilters
     }),
     actions: {
@@ -19,7 +19,7 @@ export const useFiltersStore = defineStore('filters', {
             this.currentFilters = {
                 themeType: null,
                 duration: null,
-                peopleCount: null
+                people: null
             };
             this.filtersComplete = false;
         }

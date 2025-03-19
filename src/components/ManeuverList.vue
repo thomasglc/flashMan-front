@@ -3,7 +3,12 @@
         <ManeuverQuestionnaire v-if="!filtersStore.filtersComplete" @complete="handleFiltersComplete" />
 
         <div v-else>
-            <ResetQuestionnaireButton @reset="resetQuestionnaire" />
+
+            <div class="header">
+                <SelectedFilters :filters="filtersStore.currentFilters" />
+                <ResetQuestionnaireButton @reset="resetQuestionnaire" />
+
+            </div>
 
             <div v-if="loading" class="loading">
                 <LoadingState message="Chargement des manœuvres..." />
@@ -14,6 +19,7 @@
             </div>
 
             <div v-else class="maneuvers-grid">
+
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
             </div>
         </div>
@@ -21,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { maneuverService } from '@/services/maneuverService';
 import type { Maneuver } from '@/types/maneuver';
 import type { ManeuverFilters } from '@/types/filters';
@@ -31,6 +37,7 @@ import LoadingState from './states/LoadingState.vue';
 import ErrorState from './states/ErrorState.vue';
 import ResetQuestionnaireButton from './ResetQuestionnaireButton.vue';
 import { useFiltersStore } from '@/stores/filtersStore';
+import SelectedFilters from './questionnaire/SelectedFilters.vue';
 
 const maneuvers = ref<Maneuver[]>([]);
 const loading = ref(true);
@@ -41,7 +48,7 @@ const fetchManeuvers = async () => {
     try {
         loading.value = true;
         error.value = null;
-        maneuvers.value = await maneuverService.getAll();
+        maneuvers.value = await maneuverService.getAll(filtersStore.currentFilters);
     } catch (e) {
         error.value = e instanceof Error ? e.message : 'Une erreur est survenue';
     } finally {
@@ -51,6 +58,7 @@ const fetchManeuvers = async () => {
 
 const handleFiltersComplete = (filters: ManeuverFilters) => {
     filtersStore.setFilters(filters);
+    console.log("filtesr", filters)
     fetchManeuvers();
 };
 
@@ -67,6 +75,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .maneuver-list {
     max-width: 1200px;
     margin: 0 auto;

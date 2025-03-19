@@ -3,7 +3,7 @@ export type Duration = 5 | 10 | 20 | 30;
 export interface ManeuverFilters {
     themeType: string | null;
     duration: Duration | null;
-    peopleCount: number | null;
+    people: number | null;
 }
 
 export interface FilterQuestion {

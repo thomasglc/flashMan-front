@@ -23,7 +23,7 @@
                 <div class="stats">
                     <div class="stat-item">
                         <i class="fas fa-list"></i>
-                        <span>{{ maneuver.maneuverCount }} manœuvre(s)</span>
+                        <span>{{ maneuver.maneuverCount }} manœuvrant(s)</span>
                     </div>
                     <div v-if="maneuver.hasVictim" class="stat-item">
                         <i class="fas fa-user-injured"></i>

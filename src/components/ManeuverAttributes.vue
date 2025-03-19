@@ -2,13 +2,13 @@
     <div class="maneuver-attributes">
         <div class="attribute">
             <i class="fas fa-list"></i>
-            <span class="attribute-text">{{ maneuver.maneuverCount }} manœuvre{{ maneuver.maneuverCount > 1 ? 's' : ''
-            }}</span>
+            <span class="attribute-text">{{ maneuver.maneuverCount }} manœuvrant{{ maneuver.maneuverCount > 1 ? 's' : ''
+                }}</span>
         </div>
         <div class="attribute" v-if="maneuver.hasVictim">
             <i class="fas fa-user-injured"></i>
             <span class="attribute-text">{{ maneuver.victimCount }} victime{{ maneuver.victimCount > 1 ? 's' : ''
-            }}</span>
+                }}</span>
         </div>
         <div class="attribute" v-if="maneuver.materiels?.length">
             <i class="fas fa-tools"></i>
