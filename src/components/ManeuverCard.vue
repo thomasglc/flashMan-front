@@ -1,10 +1,17 @@
 <template>
-    <div class="maneuver-card" @click="navigateToDetail" role="button" tabindex="0" @keyup.enter="navigateToDetail">
-        <div class="maneuver-content">
-            <h3>{{ maneuver.title }}</h3>
-            <p v-if="maneuver.description" class="description">{{ maneuver.description }}</p>
+    <div class="card bg-base-200 w-96 shadow-sm" @click="navigateToDetail" role="button" tabindex="0"
+        @keyup.enter="navigateToDetail">
+
+        <div class="card-body">
+            <h2 class="card-title">
+                {{ maneuver.title }}
+                <div class="badge badge-secondary">NEW</div>
+            </h2>
+            <p v-if="maneuver.description">{{ maneuver.description }}</p>
+            <div class="card-actions justify-end">
+                <ManeuverAttributes :maneuver="maneuver" />
+            </div>
         </div>
-        <ManeuverAttributes :maneuver="maneuver" />
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="duration-question">
         <div class="options">
-            <button v-for="choice in choices" :key="choice" class="option-btn"
+            <button v-for="choice in choices" :key="choice" class="option-btn btn btn-xl btn-soft btn-primary"
                 :class="{ 'selected': modelValue === choice }" @click="$emit('update:modelValue', choice)">
                 {{ isDurationQuestion ? choice + ' min' : choice }}
             </button>

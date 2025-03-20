@@ -17,7 +17,7 @@
                 <ErrorState :message="error" />
             </div>
 
-            <div v-else class="maneuvers-grid">
+            <div v-else class="flex flex-row gap-4">
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
             </div>
         </div>

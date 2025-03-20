@@ -12,11 +12,11 @@
 }
 
 .option-btn {
-    padding: 0.75rem 1.5rem;
+    /* padding: 0.75rem 1.5rem;
     border: 2px solid #e2e8f0;
     border-radius: 8px;
     background-color: white;
-    color: #4a5568;
+    color: #4a5568; */
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
