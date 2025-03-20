@@ -37,6 +37,14 @@ const navigateToDetail = () => {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
     outline: none;
+    animation: fade 0.5s;
+}
+
+@keyframes fade {
+    0% {
+        translate: 50px;
+        opacity: 0;
+    }
 }
 
 .maneuver-card:hover,

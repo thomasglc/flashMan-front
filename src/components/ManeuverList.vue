@@ -7,7 +7,6 @@
             <div class="header">
                 <SelectedFilters :filters="filtersStore.currentFilters" />
                 <ResetQuestionnaireButton @reset="resetQuestionnaire" />
-
             </div>
 
             <div v-if="loading" class="loading">
@@ -19,7 +18,6 @@
             </div>
 
             <div v-else class="maneuvers-grid">
-
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
             </div>
         </div>
@@ -78,6 +76,13 @@ onMounted(() => {
 .header {
     display: flex;
     flex-direction: column;
+    animation: fade 0.7s;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
 }
 
 
