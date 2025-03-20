@@ -47,6 +47,15 @@ const navigateToDetail = () => {
     }
 }
 
+@media(max-width:800px) {
+    @keyframes fade {
+        0% {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+    }
+}
+
 .maneuver-card:hover,
 .maneuver-card:focus {
     transform: translateY(-2px);
