@@ -5,14 +5,14 @@
                 <div :key="currentStep" class="question-container">
                     <h2 class="question">{{ currentQuestion }}</h2>
 
-                    <ThemeQuestion v-if="currentStep === 1" v-model="filters.themeType"
-                        @update:modelValue="selectTheme" />
+                    <Question v-if="currentStep === 1" v-model="filters.themeType" @update:modelValue="selectTheme"
+                        v-bind:choices="themeTypes" />
 
-                    <DurationQuestion v-if="currentStep === 2" v-model="filters.duration"
-                        @update:modelValue="selectDuration" />
+                    <Question v-if="currentStep === 2" v-model="filters.duration" @update:modelValue="selectDuration"
+                        v-bind:choices="durations" :is-duration-question="true" />
 
-                    <PeopleCountQuestion v-if="currentStep === 3" v-model="filters.people"
-                        @update:modelValue="selectPeopleCount" />
+                    <Question v-if="currentStep === 3" v-model="filters.people" @update:modelValue="selectPeopleCount"
+                        v-bind:choices="peopleChoices" />
 
 
                     <div class="navigation">
@@ -27,14 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import type { ManeuverFilters, Duration } from '@/types/filters';
-import ThemeQuestion from './questionnaire/ThemeQuestion.vue';
-import DurationQuestion from './questionnaire/DurationQuestion.vue';
-import PeopleCountQuestion from './questionnaire/PeopleCountQuestion.vue';
+import type { ManeuverFilters } from '@/types/filters';
+import { computed, ref } from 'vue';
+import Question from './questionnaire/Question.vue';
 import QuestionStyles from './questionnaire/QuestionStyles.vue';
 import SlideTransition from './transitions/SlideTransition.vue';
-import SelectedFilters from './questionnaire/SelectedFilters.vue';
 
 const emit = defineEmits<{
     (e: 'complete', filters: ManeuverFilters): void;
@@ -43,6 +40,9 @@ const emit = defineEmits<{
 const currentStep = ref(1);
 const isComplete = ref(false);
 const isReverse = ref(false);
+const durations = ref<number[]>([5, 10, 20, 30]);
+const peopleChoices = ref<number[]>([1, 2, 3, 4, 5]);
+const themeTypes = ref<string[]>(["INC", "DIV", "SAP"]);
 
 const filters = ref<ManeuverFilters>({
     themeType: null,
@@ -78,19 +78,18 @@ const previousStep = () => {
     currentStep.value--;
 };
 
-const handleSelect = async <T extends string | number | Duration>(value: T, key: keyof ManeuverFilters) => {
+const handleSelect = async <T extends string | number | number>(value: T, key: keyof ManeuverFilters) => {
     (filters.value[key] as T) = value;
     await nextStep();
 };
 
 const selectTheme = (theme: string) => handleSelect(theme, 'themeType');
-const selectDuration = (duration: Duration) => handleSelect(duration, 'duration');
+const selectDuration = (duration: number) => handleSelect(duration, 'duration');
 const selectPeopleCount = (count: number) => handleSelect(count, 'people');
 </script>
 
 <style scoped>
 .questionnaire {
-    max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
     overflow: hidden;
