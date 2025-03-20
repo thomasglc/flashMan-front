@@ -5,8 +5,12 @@
         <div v-else>
 
             <div class="header">
-                <SelectedFilters :filters="filtersStore.currentFilters" />
-                <ResetQuestionnaireButton @reset="resetQuestionnaire" />
+                <div>
+                    <SelectedFilters :filters="filtersStore.currentFilters" />
+                </div>
+                <div>
+                    <ResetQuestionnaireButton @reset="resetQuestionnaire" />
+                </div>
             </div>
 
             <div v-if="loading" class="loading">
@@ -75,7 +79,8 @@ onMounted(() => {
 <style scoped>
 .header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     animation: fade 0.7s;
 }
 
