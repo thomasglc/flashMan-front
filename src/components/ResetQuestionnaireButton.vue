@@ -1,10 +1,12 @@
 <template>
-    <button class="reset-button" @click="$emit('reset')">
+    <Button @click="$emit('reset')">
         <i class="fas fa-redo-alt"></i>
-    </button>
+    </Button>
 </template>
 
 <script setup lang="ts">
+import Button from './utils/button.vue';
+
 defineEmits<{
     (e: 'reset'): void;
 }>();

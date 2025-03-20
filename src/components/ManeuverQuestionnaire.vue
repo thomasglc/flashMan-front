@@ -1,28 +1,26 @@
 <template>
     <div class="questionnaire" v-if="!isComplete">
-        <QuestionStyles>
-            <SlideTransition :is-reverse="isReverse">
-                <div :key="currentStep" class="question-container">
-                    <h2 class="question">{{ currentQuestion }}</h2>
+        <SlideTransition :is-reverse="isReverse">
+            <div :key="currentStep" class="question-container">
+                <h2 class="question">{{ currentQuestion }}</h2>
 
-                    <Question v-if="currentStep === 1" v-model="filters.themeType" @update:modelValue="selectTheme"
-                        v-bind:choices="themeTypes" />
+                <Question v-if="currentStep === 1" v-model="filters.themeType" @update:modelValue="selectTheme"
+                    v-bind:choices="themeTypes" />
 
-                    <Question v-if="currentStep === 2" v-model="filters.duration" @update:modelValue="selectDuration"
-                        v-bind:choices="durations" :is-duration-question="true" />
+                <Question v-if="currentStep === 2" v-model="filters.duration" @update:modelValue="selectDuration"
+                    v-bind:choices="durations" :is-duration-question="true" />
 
-                    <Question v-if="currentStep === 3" v-model="filters.people" @update:modelValue="selectPeopleCount"
-                        v-bind:choices="peopleChoices" />
+                <Question v-if="currentStep === 3" v-model="filters.people" @update:modelValue="selectPeopleCount"
+                    v-bind:choices="peopleChoices" />
 
 
-                    <div class="navigation">
-                        <button v-if="currentStep > 1" class="nav-btn back" @click="previousStep">
-                            <i class="fas fa-arrow-left"></i> Précédent
-                        </button>
-                    </div>
+                <div class="navigation">
+                    <Button v-if="currentStep > 1" class="nav-btn" @click="previousStep">
+                        <i class="fas fa-arrow-left"></i> Précédent
+                    </Button>
                 </div>
-            </SlideTransition>
-        </QuestionStyles>
+            </div>
+        </SlideTransition>
     </div>
 </template>
 
@@ -30,8 +28,8 @@
 import type { ManeuverFilters } from '@/types/filters';
 import { computed, ref } from 'vue';
 import Question from './questionnaire/Question.vue';
-import QuestionStyles from './questionnaire/QuestionStyles.vue';
 import SlideTransition from './transitions/SlideTransition.vue';
+import Button from './utils/button.vue';
 
 const emit = defineEmits<{
     (e: 'complete', filters: ManeuverFilters): void;
@@ -111,26 +109,8 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'people');
     margin-top: 2rem;
 }
 
-.nav-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
 
-.nav-btn.back {
-    background-color: #edf2f7;
-    color: #4a5568;
-}
 
-.nav-btn:hover {
-    opacity: 0.9;
-}
 
 .nav-btn i {
     font-size: 0.9rem;

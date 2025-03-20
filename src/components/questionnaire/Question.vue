@@ -4,12 +4,14 @@
             <button v-for="choice in choices" :key="choice" class="option-btn btn btn-xl btn-soft btn-primary"
                 :class="{ 'selected': modelValue === choice }" @click="$emit('update:modelValue', choice)">
                 {{ isDurationQuestion ? choice + ' min' : choice }}
-            </button>
+            </Button>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import Button from '../utils/button.vue';
+
 
 const props = defineProps<{
     modelValue: number | string | null;
@@ -23,3 +25,13 @@ const emit = defineEmits<{
 
 const isDurationQuestion = props.isDurationQuestion ?? false; 
 </script>
+
+<style scopted>
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+</style>
