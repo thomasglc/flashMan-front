@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import Button from '../utils/button.vue';
 
 
 const props = defineProps<{
