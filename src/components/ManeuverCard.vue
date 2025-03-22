@@ -1,5 +1,5 @@
 <template>
-    <div class="maneuver-card card bg-base-300 shadow-md m-8 xl:h-60 w-1/2" @click="navigateToDetail" role="button"
+    <div class="maneuver-card card bg-base-300 shadow-md m-8 xl:h-60 xl:w-1/2" @click="navigateToDetail" role="button"
         tabindex="0" @keyup.enter="navigateToDetail">
 
         <div class="card-body">
@@ -38,7 +38,7 @@ const truncatedDescription = computed(() => {
 </script>
 
 <style scoped>
-.maneuver-card {
+/* .maneuver-card {
     cursor: pointer;
     transition: all 0.3s;
     animation: fade 0.5s;
@@ -58,7 +58,7 @@ const truncatedDescription = computed(() => {
             opacity: 0;
         }
     }
-}
+} */
 
 .maneuver-card:hover,
 .maneuver-card:focus {

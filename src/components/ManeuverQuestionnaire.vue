@@ -12,9 +12,6 @@
 
                 <Question v-if="currentStep === 3" v-model="filters.people" @update:modelValue="selectPeopleCount"
                     v-bind:choices="peopleChoices" />
-
-
-
             </div>
         </SlideTransition>
     </div>

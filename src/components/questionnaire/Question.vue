@@ -11,18 +11,17 @@
 
 <script setup lang="ts">
 
-
-const props = defineProps<{
+withDefaults(defineProps<{
     modelValue: number | string | null;
     choices: any[];
     isDurationQuestion?: boolean;
-}>();
+}>(), {
+    isDurationQuestion: false
+});
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: any): void;
 }>();
-
-const isDurationQuestion = props.isDurationQuestion ?? false; 
 </script>
 
 <style scopted>

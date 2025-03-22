@@ -3,23 +3,22 @@
         <ManeuverQuestionnaire v-if="!filtersStore.filtersComplete" @complete="handleFiltersComplete" />
 
         <div v-else>
-
             <div class="header">
                 <SelectedFilters :filters="filtersStore.currentFilters" />
             </div>
             <ResetQuestionnaireButton @reset="resetQuestionnaire" />
 
-            <div v-if="loading" class="loading">
-                <LoadingState message="Chargement des manœuvres..." />
+            <div v-if="loading">
+                <LoadingState :in-card='true' :number="2" />
             </div>
 
             <div v-else-if="error" class="error">
                 <ErrorState :message="error" />
             </div>
-
             <div v-else class="xl:flex">
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
             </div>
+
         </div>
 
     </div>
@@ -97,7 +96,6 @@ onMounted(() => {
     margin-top: 2rem;
 }
 
-.loading,
 .error {
     text-align: center;
     margin-top: 2rem;

@@ -1,4 +1,5 @@
 <template>
+    <p>mdr j'suis la</p>
     <span class="loading loading-spinner text-primary"></span>
 </template>
 
