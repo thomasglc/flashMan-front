@@ -9,6 +9,7 @@
       <h1 class="title absolute text-7xl text-white p-5 top-10 left-1/2 -translate-x-1/2 ">FlashMan'</h1>
     </div>
     <router-view></router-view>
+
   </div>
 </template>
 

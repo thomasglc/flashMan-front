@@ -29,7 +29,8 @@ import type { ManeuverFilters } from '@/types/filters';
 import { computed, ref } from 'vue';
 import Question from './questionnaire/Question.vue';
 import SlideTransition from './transitions/SlideTransition.vue';
-import Button from './utils/button.vue';
+import Button from './utils/PreviousButton.vue';
+import { ThemeTypes } from '@/enums/themeTypes';
 
 const emit = defineEmits<{
     (e: 'complete', filters: ManeuverFilters): void;
@@ -40,7 +41,7 @@ const isComplete = ref(false);
 const isReverse = ref(false);
 const durations = ref<number[]>([5, 10, 20, 30]);
 const peopleChoices = ref<number[]>([1, 2, 3, 4, 5]);
-const themeTypes = ref<string[]>(["INC", "DIV", "SAP"]);
+const themeTypes = ref<string[]>(Object.values(ThemeTypes));
 
 const filters = ref<ManeuverFilters>({
     themeType: null,

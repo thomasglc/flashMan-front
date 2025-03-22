@@ -5,11 +5,9 @@
         <div v-else>
 
             <div class="header">
+                <ResetQuestionnaireButton @reset="resetQuestionnaire" />
                 <div>
                     <SelectedFilters :filters="filtersStore.currentFilters" />
-                </div>
-                <div>
-                    <ResetQuestionnaireButton @reset="resetQuestionnaire" />
                 </div>
             </div>
 
@@ -25,6 +23,7 @@
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
             </div>
         </div>
+
     </div>
 </template>
 
@@ -78,9 +77,6 @@ onMounted(() => {
 
 <style scoped>
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     animation: fade 0.7s;
 }
 
