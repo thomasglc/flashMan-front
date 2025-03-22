@@ -1,6 +1,6 @@
 <template>
-    <div class="maneuver-card card bg-base-300 shadow-md m-8" @click="navigateToDetail" role="button" tabindex="0"
-        @keyup.enter="navigateToDetail">
+    <div class="maneuver-card card bg-base-300 shadow-md m-8 xl:h-60 w-1/2" @click="navigateToDetail" role="button"
+        tabindex="0" @keyup.enter="navigateToDetail">
 
         <div class="card-body">
             <h2 class="card-title">
@@ -30,7 +30,7 @@ const navigateToDetail = () => {
 const truncatedDescription = computed(() => {
     if (props.maneuver.description) {
         return props.maneuver.description.length > 100
-            ? props.maneuver.description.substring(0, 100) + "..."
+            ? props.maneuver.description.substring(0, 200) + "..."
             : props.maneuver.description;
     }
     return '';

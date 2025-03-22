@@ -17,7 +17,7 @@
                 <ErrorState :message="error" />
             </div>
 
-            <div v-else>
+            <div v-else class="xl:flex">
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
             </div>
         </div>
@@ -85,7 +85,7 @@ onMounted(() => {
 
 
 .maneuver-list {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     position: relative;
 }
