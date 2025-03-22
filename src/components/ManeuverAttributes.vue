@@ -1,28 +1,26 @@
 <template>
     <div class="maneuver-attributes">
-        <div class="attribute">
-            <i class="fas fa-list"></i>
-            <span class="attribute-text">{{ maneuver.maneuverCount }} manœuvrant{{ maneuver.maneuverCount > 1 ? 's' : ''
-                }}</span>
+        <div>
+            <Badge icon="fa-users-gear" size="badge-md">
+                {{ maneuver.maneuverCount }} manœuvrant{{ maneuver.maneuverCount > 1 ? 's' : '' }}
+            </Badge>
         </div>
-        <div class="attribute" v-if="maneuver.hasVictim">
-            <i class="fas fa-user-injured"></i>
-            <span class="attribute-text">{{ maneuver.victimCount }} victime{{ maneuver.victimCount > 1 ? 's' : ''
-                }}</span>
+        <div v-if="maneuver.hasVictim">
+            <Badge icon="fa-user-injured" size="badge-md">
+                {{ maneuver.victimCount }} victime{{ maneuver.victimCount > 1 ? 's' : '' }}
+            </Badge>
         </div>
-        <div class="attribute" v-if="maneuver.materiels?.length">
-            <i class="fas fa-tools"></i>
-            <span class="attribute-text">{{maneuver.materiels.map(m => m.name).join(', ')}}</span>
-        </div>
-        <div class="attribute" v-if="maneuver.theme_types?.length">
-            <i class="fas fa-tag"></i>
-            <span class="attribute-text">{{maneuver.theme_types.map(t => t.name).join(', ')}}</span>
+        <div v-if="maneuver.materiels?.length">
+            <Badge icon="fa-tools" size="badge-md">
+                {{maneuver.materiels.map(m => m.name).join(' / ')}}
+            </Badge>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { Maneuver } from '@/types/maneuver';
+import Badge from './utils/Badge.vue';
 
 defineProps<{
     maneuver: Maneuver;

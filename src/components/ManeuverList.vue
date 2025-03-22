@@ -57,7 +57,6 @@ const fetchManeuvers = async () => {
 
 const handleFiltersComplete = (filters: ManeuverFilters) => {
     filtersStore.setFilters(filters);
-    console.log("filtesr", filters)
     fetchManeuvers();
 };
 
@@ -75,7 +74,7 @@ onMounted(() => {
 
 <style scoped>
 .header {
-    animation: fade 0.7s;
+    animation: fade 0.9s;
 }
 
 @keyframes fade {

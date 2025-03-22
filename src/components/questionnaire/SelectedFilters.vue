@@ -1,8 +1,8 @@
 <template>
     <div v-if="filters" class="flex justify-evenly">
-        <Badge :badge="icon" :badge-class="color">{{ filters.themeType }}</Badge>
-        <Badge badge="fa-clock">{{ filters.duration }} minutes</Badge>
-        <Badge badge="fa-people-group">{{ filters.people }} personne{{ filters.people > 1 ? 's' : '' }}</Badge>
+        <Badge :icon="icon" :badge-class="color">{{ filters.themeType }}</Badge>
+        <Badge icon="fa-clock">{{ filters.duration }} minutes</Badge>
+        <Badge icon="fa-people-group">{{ filters.people }} personne{{ filters.people > 1 ? 's' : '' }}</Badge>
     </div>
 </template>
 

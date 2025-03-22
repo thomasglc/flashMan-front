@@ -1,8 +1,5 @@
 <template>
-    <div class="error">
-        <i class="fas fa-exclamation-circle"></i>
-        <span>{{ message }}</span>
-    </div>
+    <span class="loading loading-spinner text-primary"></span>
 </template>
 
 <script setup lang="ts">

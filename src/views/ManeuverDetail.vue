@@ -10,10 +10,7 @@
 
         <div v-else-if="maneuver" class="content">
             <div class="header">
-                <button class="back-button" @click="router.back()">
-                    <i class="fas fa-arrow-left"></i>
-                    Retour
-                </button>
+                <PreviousButton @click="router.back()"></PreviousButton>
                 <h1>{{ maneuver.title }}</h1>
             </div>
 
@@ -42,6 +39,7 @@ import { maneuverService } from '@/services/maneuverService';
 import type { Maneuver } from '@/types/maneuver';
 import LoadingState from '@/components/states/LoadingState.vue';
 import ErrorState from '@/components/states/ErrorState.vue';
+import PreviousButton from '@/components/utils/PreviousButton.vue';
 
 const router = useRouter();
 const route = useRoute();

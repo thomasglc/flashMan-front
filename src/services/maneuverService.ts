@@ -16,7 +16,8 @@ class ManeuverService extends BaseService<Maneuver> {
         theme_types: filters?.themeType ? { name: { $eq: filters.themeType } } : undefined,
         duration: filters?.duration ? { $eq: filters.duration } : undefined,
         people: filters?.people ? { $eq: filters.people } : undefined,
-      }
+      },
+      populate: '*'
     }, {
       encodeValuesOnly: true,
       skipNulls: true

@@ -1,16 +1,13 @@
 <template>
-    <div class="maneuver-card card bg-base-200 shadow-md m-8" @click="navigateToDetail" role="button" tabindex="0"
+    <div class="maneuver-card card bg-base-300 shadow-md m-8" @click="navigateToDetail" role="button" tabindex="0"
         @keyup.enter="navigateToDetail">
 
         <div class="card-body">
             <h2 class="card-title">
                 {{ maneuver.title }}
-                <div class="badge badge-secondary">NEW</div>
             </h2>
-            <p v-if="maneuver.description">{{ maneuver.description }}</p>
-            <div class="card-actions justify-end">
-                <ManeuverAttributes :maneuver="maneuver" />
-            </div>
+            <p v-if="truncatedDescription">{{ truncatedDescription }}</p>
+            <ManeuverAttributes :maneuver="maneuver" />
         </div>
     </div>
 </template>
@@ -19,6 +16,7 @@
 import type { Maneuver } from '@/types/maneuver';
 import { useRouter } from 'vue-router';
 import ManeuverAttributes from './ManeuverAttributes.vue';
+import { computed } from 'vue';
 
 const router = useRouter();
 const props = defineProps<{
@@ -28,6 +26,15 @@ const props = defineProps<{
 const navigateToDetail = () => {
     router.push(`/maneuvers/${props.maneuver.documentId}`);
 };
+
+const truncatedDescription = computed(() => {
+    if (props.maneuver.description) {
+        return props.maneuver.description.length > 100
+            ? props.maneuver.description.substring(0, 100) + "..."
+            : props.maneuver.description;
+    }
+    return '';
+});
 </script>
 
 <style scoped>

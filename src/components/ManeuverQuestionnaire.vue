@@ -86,11 +86,7 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'people');
 </script>
 
 <style scoped>
-.questionnaire {
-    margin: 2rem auto;
-    padding: 2rem;
-    overflow: hidden;
-}
+.questionnaire {}
 
 .question-container {
     width: 100%;
@@ -99,6 +95,7 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'people');
 .question {
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    margin-top: 2rem;
     text-align: center;
 }
 </style>
