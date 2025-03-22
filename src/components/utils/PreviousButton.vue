@@ -1,5 +1,7 @@
 <template>
-    <button class="btn btn-circle fixed bottom-15 right-5 btn-soft btn-primary btn-lg">
-        <i class="fas fa-arrow-left"></i>
+    <button class="btn btn-circle fixed bottom-10 right-5 btn-soft btn-primary btn-lg z-50">
+        <slot>
+            <i class="fas fa-arrow-left"></i>
+        </slot>
     </button>
 </template>

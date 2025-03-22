@@ -14,14 +14,12 @@
                     v-bind:choices="peopleChoices" />
 
 
-                <div class="navigation">
-                    <Button v-if="currentStep > 1" class="nav-btn" @click="previousStep">
-                        <i class="fas fa-arrow-left"></i> Précédent
-                    </Button>
-                </div>
+
             </div>
         </SlideTransition>
     </div>
+    <Button v-if="currentStep > 1" class="nav-btn" @click="previousStep">
+    </Button>
 </template>
 
 <script setup lang="ts">
@@ -102,18 +100,5 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'people');
     font-size: 1.5rem;
     margin-bottom: 2rem;
     text-align: center;
-}
-
-.navigation {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 2rem;
-}
-
-
-
-
-.nav-btn i {
-    font-size: 0.9rem;
 }
 </style>

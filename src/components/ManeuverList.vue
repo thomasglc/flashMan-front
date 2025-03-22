@@ -5,11 +5,9 @@
         <div v-else>
 
             <div class="header">
-                <ResetQuestionnaireButton @reset="resetQuestionnaire" />
-                <div>
-                    <SelectedFilters :filters="filtersStore.currentFilters" />
-                </div>
+                <SelectedFilters :filters="filtersStore.currentFilters" />
             </div>
+            <ResetQuestionnaireButton @reset="resetQuestionnaire" />
 
             <div v-if="loading" class="loading">
                 <LoadingState message="Chargement des manœuvres..." />

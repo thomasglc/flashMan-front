@@ -1,5 +1,6 @@
 <template>
     <Button @click="$emit('reset')">
+        <i class="fas fa-rotate-left"></i>
     </Button>
 </template>
 
@@ -10,5 +11,3 @@ defineEmits<{
     (e: 'reset'): void;
 }>();
 </script>
-
-<style scoped></style>
