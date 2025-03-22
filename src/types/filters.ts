@@ -1,8 +1,9 @@
+import type { ThemeTypes } from "@/enums/themeTypes";
 
 export interface ManeuverFilters {
-    themeType: string | null;
+    themeType: ThemeTypes | null;
     duration: number | null;
-    people: number | null;
+    people: number;
 }
 
 export interface FilterQuestion {

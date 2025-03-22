@@ -1,5 +1,5 @@
 <template>
-    <div :class="['badge', `badge-${selectedcolor}`, 'badge-lg', outlined]">
+    <div :class="['badge', currentClass, outlined, 'badge-lg']">
         <i v-if="badge" :class="['fa-solid', badge]"></i>
         <slot></slot>
     </div>
@@ -8,10 +8,11 @@
 <script setup lang="ts">
 
 const props = defineProps<{
-    color?: string;
+    badgeClass?: string;
     badge?: string,
 }>();
-const outlined = props.color ? "badge-outline" : '';
-const selectedcolor = props.color ?? 'neutral';
-console.log(selectedcolor)
+const outlined = props.badgeClass ? "badge-soft" : '';
+const currentClass = props.badgeClass ?? "badge-neutral"
+
+
 </script>

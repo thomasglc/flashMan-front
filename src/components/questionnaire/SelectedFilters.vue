@@ -1,6 +1,6 @@
 <template>
     <div v-if="filters" class="flex justify-evenly">
-        <Badge :badge="icon" :color="color">{{ filters.themeType }}</Badge>
+        <Badge :badge="icon" :badge-class="color">{{ filters.themeType }}</Badge>
         <Badge badge="fa-clock">{{ filters.duration }} minutes</Badge>
         <Badge badge="fa-people-group">{{ filters.people }} personne{{ filters.people > 1 ? 's' : '' }}</Badge>
     </div>
@@ -16,9 +16,10 @@ const props = defineProps<{
 }>();
 
 const themeMapping = {
-    [ThemeTypes.INC]: { icon: "fa-fire", color: "error" },
-    [ThemeTypes.DIV]: { icon: "fa-hammer", color: "info" },
-    [ThemeTypes.SAP]: { icon: "fa-truck-medical", color: "success" }
+    [ThemeTypes.INC]: { icon: "fa-fire", badgeClass: "badge-error" },
+    [ThemeTypes.DIV]: { icon: "fa-hammer", badgeClass: "badge-info" },
+    [ThemeTypes.SAP]: { icon: "fa-truck-medical", badgeClass: "badge-success" }
 };
-const { icon, color } = themeMapping[props.filters.themeType];
+const themeType = props.filters.themeType;
+const { icon, badgeClass: color } = themeType ? themeMapping[themeType] : { icon: '', badgeClass: '' };
 </script>
