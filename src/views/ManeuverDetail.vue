@@ -1,21 +1,24 @@
 <template>
-    <SelectedFilters :filters="filtersStore.currentFilters"></SelectedFilters>
-    <div class="maneuver-detail">
-        <div v-if="loading">
-            <LoadingState message="Chargement de la manœuvre..." />
-        </div>
+    <div class="max-width">
+        <SelectedFilters :filters="filtersStore.currentFilters"></SelectedFilters>
+        <div class="maneuver-detail">
+            <div v-if="loading">
+                <LoadingState />
+            </div>
 
-        <div v-else-if="error">
-            <ErrorState :message="error" />
-        </div>
+            <div v-else-if="error">
+                <ErrorState :message="error" />
+            </div>
 
-        <div v-else-if="maneuver">
-            <PreviousButton @click="router.back()"></PreviousButton>
-            <h1>{{ maneuver.title }}</h1>
-            <ManeuverAttributes :maneuver="maneuver" />
-            <p class="description">{{ maneuver.description }}</p>
+            <div v-else-if="maneuver">
+                <PreviousButton @click="router.back()"></PreviousButton>
+                <h1>{{ maneuver.title }}</h1>
+                <ManeuverAttributes :maneuver="maneuver" />
+                <p class="description">{{ maneuver.description }}</p>
+            </div>
         </div>
     </div>
+
 </template>
 
 <script setup lang="ts">
@@ -62,6 +65,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.max-width {
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
 .maneuver-detail {
     padding: 2rem;
 }
