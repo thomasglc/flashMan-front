@@ -9,7 +9,7 @@
             <ResetQuestionnaireButton @reset="resetQuestionnaire" />
 
             <div v-if="loading">
-                <LoadingState :in-card='true' :number="2" />
+                <CardLoadingState :number="2" />
             </div>
 
             <div v-else-if="error" class="error">
@@ -17,6 +17,7 @@
             </div>
             <div v-else class="xl:flex">
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
+
             </div>
 
         </div>
@@ -25,17 +26,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { maneuverService } from '@/services/maneuverService';
-import type { Maneuver } from '@/types/maneuver';
+import { useFiltersStore } from '@/stores/filtersStore';
 import type { ManeuverFilters } from '@/types/filters';
+import type { Maneuver } from '@/types/maneuver';
+import { onMounted, ref } from 'vue';
 import ManeuverCard from './ManeuverCard.vue';
 import ManeuverQuestionnaire from './ManeuverQuestionnaire.vue';
-import LoadingState from './states/LoadingState.vue';
-import ErrorState from './states/ErrorState.vue';
-import ResetQuestionnaireButton from './ResetQuestionnaireButton.vue';
-import { useFiltersStore } from '@/stores/filtersStore';
 import SelectedFilters from './questionnaire/SelectedFilters.vue';
+import ResetQuestionnaireButton from './ResetQuestionnaireButton.vue';
+import CardLoadingState from './states/CardLoadingState.vue';
+import ErrorState from './states/ErrorState.vue';
 
 const maneuvers = ref<Maneuver[]>([]);
 const loading = ref(true);
@@ -72,7 +73,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.header {
+/* .header {
     animation: fade 0.9s;
 }
 
@@ -80,7 +81,7 @@ onMounted(() => {
     0% {
         opacity: 0;
     }
-}
+} */
 
 
 .maneuver-list {

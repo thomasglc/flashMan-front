@@ -23,7 +23,7 @@
 import type { ManeuverFilters } from '@/types/filters';
 import { computed, ref } from 'vue';
 import Question from './questionnaire/Question.vue';
-import SlideTransition from './transitions/SlideTransition.vue';
+import SlideTransition from './transitions/QuestionTransition.vue';
 import Button from './utils/PreviousButton.vue';
 import { ThemeTypes } from '@/enums/themeTypes';
 

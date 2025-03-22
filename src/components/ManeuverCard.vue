@@ -38,12 +38,13 @@ const truncatedDescription = computed(() => {
 </script>
 
 <style scoped>
-/* .maneuver-card {
+.maneuver-card {
     cursor: pointer;
-    transition: all 0.3s;
-    animation: fade 0.5s;
+    /* transition: all 0.3s;
+    animation: fade 0.5s; */
 }
 
+/*
 @keyframes fade {
     0% {
         translate: 50px;
