@@ -5,13 +5,9 @@
         <div v-else>
 
             <div class="header">
-                <div>
-                    <SelectedFilters :filters="filtersStore.currentFilters" />
-                </div>
-                <div>
-                    <ResetQuestionnaireButton @reset="resetQuestionnaire" />
-                </div>
+                <SelectedFilters :filters="filtersStore.currentFilters" />
             </div>
+            <ResetQuestionnaireButton @reset="resetQuestionnaire" />
 
             <div v-if="loading" class="loading">
                 <LoadingState message="Chargement des manœuvres..." />
@@ -21,10 +17,11 @@
                 <ErrorState :message="error" />
             </div>
 
-            <div v-else class="maneuvers-grid">
+            <div v-else>
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
             </div>
         </div>
+
     </div>
 </template>
 
@@ -78,9 +75,6 @@ onMounted(() => {
 
 <style scoped>
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     animation: fade 0.7s;
 }
 

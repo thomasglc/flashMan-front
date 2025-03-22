@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+
+@plugin "daisyui" {
+  themes: cupcake --default, night --prefersdark;
+}
+
+@layer base {
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: bolder;
+  }
+  h2 {
+    font-size: var(--text-xl);
+  }
+}

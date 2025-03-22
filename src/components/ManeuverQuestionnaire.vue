@@ -14,14 +14,12 @@
                     v-bind:choices="peopleChoices" />
 
 
-                <div class="navigation">
-                    <Button v-if="currentStep > 1" class="nav-btn" @click="previousStep">
-                        <i class="fas fa-arrow-left"></i> Précédent
-                    </Button>
-                </div>
+
             </div>
         </SlideTransition>
     </div>
+    <Button v-if="currentStep > 1" class="nav-btn" @click="previousStep">
+    </Button>
 </template>
 
 <script setup lang="ts">
@@ -29,7 +27,8 @@ import type { ManeuverFilters } from '@/types/filters';
 import { computed, ref } from 'vue';
 import Question from './questionnaire/Question.vue';
 import SlideTransition from './transitions/SlideTransition.vue';
-import Button from './utils/button.vue';
+import Button from './utils/PreviousButton.vue';
+import { ThemeTypes } from '@/enums/themeTypes';
 
 const emit = defineEmits<{
     (e: 'complete', filters: ManeuverFilters): void;
@@ -40,7 +39,7 @@ const isComplete = ref(false);
 const isReverse = ref(false);
 const durations = ref<number[]>([5, 10, 20, 30]);
 const peopleChoices = ref<number[]>([1, 2, 3, 4, 5]);
-const themeTypes = ref<string[]>(["INC", "DIV", "SAP"]);
+const themeTypes = ref<string[]>(Object.values(ThemeTypes));
 
 const filters = ref<ManeuverFilters>({
     themeType: null,
@@ -101,18 +100,5 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'people');
     font-size: 1.5rem;
     margin-bottom: 2rem;
     text-align: center;
-}
-
-.navigation {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 2rem;
-}
-
-
-
-
-.nav-btn i {
-    font-size: 0.9rem;
 }
 </style>
