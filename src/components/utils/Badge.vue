@@ -1,5 +1,5 @@
 <template>
-    <div :class="['badge', currentClass, outlined, size]">
+    <div :class="['badge', currentClass, outlined, size, 'p-4']">
         <i v-if="icon" :class="['fa-solid', icon]"></i>
         <slot></slot>
     </div>

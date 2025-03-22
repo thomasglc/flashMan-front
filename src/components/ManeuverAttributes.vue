@@ -1,4 +1,5 @@
 <template>
+    <hr class="h-px mt-5  border-0 bg-gray-700">
     <div class="maneuver-attributes">
         <div>
             <Badge icon="fa-users-gear" size="badge-md">
@@ -32,9 +33,7 @@ defineProps<{
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #e2e8f0;
 }
 
 .attribute {

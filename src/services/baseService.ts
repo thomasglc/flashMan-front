@@ -1,5 +1,6 @@
 import type { ApiResponse, SingleApiResponse } from '@/types/api';
 import { httpClient } from './httpService';
+import qs from 'qs';
 
 export abstract class BaseService<T> {
     protected constructor(
@@ -11,8 +12,11 @@ export abstract class BaseService<T> {
         return response.data.data;
     }
 
-    async getById(id: number | string | string[]): Promise<T> {
-        const response = await httpClient.get<SingleApiResponse<T>>(`${this.endpoint}/${id}`);
+    async getById(id: number | string | string[], populate: string = "*"): Promise<T> {
+        const query = qs.stringify({
+            populate: populate
+        })
+        const response = await httpClient.get<SingleApiResponse<T>>(`${this.endpoint}/${id}?${query}`);
         return response.data.data;
     }
 
