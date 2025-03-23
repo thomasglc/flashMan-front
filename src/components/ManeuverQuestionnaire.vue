@@ -83,7 +83,9 @@ const selectPeopleCount = (count: number) => handleSelect(count, 'people');
 </script>
 
 <style scoped>
-.questionnaire {}
+.questionnaire {
+    overflow: hidden;
+}
 
 .question-container {
     width: 100%;
