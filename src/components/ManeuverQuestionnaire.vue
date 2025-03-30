@@ -41,7 +41,7 @@ const themeTypes = ref<string[]>(Object.values(ThemeTypes));
 const filters = ref<ManeuverFilters>({
     themeType: null,
     duration: null,
-    people: null
+    people: 0
 });
 
 const currentQuestion = computed(() => {
