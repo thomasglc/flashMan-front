@@ -19,7 +19,7 @@
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
 
             </div>
-            <div v-else-if="!hasManeuvers" class="flex justify-center py-12 m-5 ">
+            <div v-else-if="!hasManeuvers" class="header flex justify-center py-12 m-5 ">
                 <div class="alert alert-warning alert-soft pt-5 pb-5">
                     <div class="flex   ">
                         <div class=" basis-1/4 flex justify-center items-center">
@@ -91,7 +91,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* .header {
+.header {
     animation: fade 0.9s;
 }
 
@@ -99,7 +99,7 @@ onMounted(() => {
     0% {
         opacity: 0;
     }
-} */
+}
 
 
 .maneuver-list {
