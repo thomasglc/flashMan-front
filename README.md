@@ -1,41 +1,73 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/09d12600-b7a7-433b-be97-c9503b4417a4/deploy-status)](https://app.netlify.com/sites/statuesque-cucurucho-99b8cc/deploys)
 
-# flashMan-front
+# 🚒 FlashMan' - Générateur d'idées de manœuvres pour Sapeurs-Pompiers 🧑‍🚒
 
-This template should help get you started developing with Vue 3 in Vite.
+## Description
+FlashMan' est une application web développée avec Vue.js permettant aux pompiers de générer rapidement des idées de manœuvres d'entraînement adaptées à différents critères. Souvent, les idées des manœuvres flash peut être compliqué, c'est pourquoi cette application facilite la sélection en fonction de :
 
-## Recommended IDE Setup
+- **Type de manœuvre** : Incendie, Divers, Secours à personne
+- **Durée** : Courte, Moyenne, Longue
+- **Nombre de personnes** : 2 / 3 / 4 / 5
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+L'application récupère ses données depuis une API externe contenant l'ensemble des manœuvres disponibles.
 
-## Type Support for `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## 🚀 Fonctionnalités
+- Sélection rapide des critères
+- Proposition automatique de manœuvres adaptées
+- Affichage des détails de chaque manœuvre
+- Interface intuitive et réactive
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🛠️ Installation et Exécution
+### Prérequis
+- [Node.js](https://nodejs.org/) (version recommandée : LTS)
+- [Vue CLI](https://cli.vuejs.org/) (optionnel)
 
-## Project Setup
+### Installation du projet
+```bash
+git clone https://github.com/thomasglc/flashMan-front.git
+cd flashMan-front
 
-```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
+### Lancer le projet en mode développement
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
+### Build pour la production
+```bash
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+---
 
-```sh
-npm run lint
+## 🔗 API
+Le projet est connecté à une API qui fournit les manœuvres disponibles.
+
+- **Endpoint principal** : `/api/maneuvers`
+- **Filtres possibles** : `type`, `duree`, `nombre_personnes`
+
+Exemple d'appel API :
+```bash
+GET /api/maneuvers?filters[theme_types][name][$eq]=INC&filters[duration][$eq]=5&filters[people][$eq]=1&populate=%2A
 ```
+
+---
+
+## 📌 Technologies utilisées
+- Vue.js (Composition API)
+- Vite
+- Tailwind CSS / DaisyUI
+- Axios (pour les requêtes API)
+
+---
+
+---
+
+## 📜 Licence
+Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus d’informations.
