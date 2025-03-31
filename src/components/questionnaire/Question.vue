@@ -1,10 +1,15 @@
 <template>
     <div class="duration-question">
         <div class="options">
-            <button v-for="choice in choices" :key="choice" class="option-btn btn btn-xl btn-soft btn-primary w-1/3"
-                :class="{ 'btn-active': modelValue === choice }" @click="$emit('update:modelValue', choice)">
-                {{ isDurationQuestion ? choice + ' min' : choice }}
-            </Button>
+            <div v-for="choice in choices" :key="choice">
+                <button class="option-btn btn btn-xl btn-soft btn-primary w-1/3"
+                    :class="{ 'btn-active': modelValue === choice }" @click="$emit('update:modelValue', choice)">
+                    {{ isDurationQuestion ? choice + ' min' : choice }}
+                </Button>
+                {{ modelValue }}
+                {{ choice }}
+
+            </div>
         </div>
     </div>
 </template>
