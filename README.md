@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/09d12600-b7a7-433b-be97-c9503b4417a4/deploy-status)](https://app.netlify.com/sites/statuesque-cucurucho-99b8cc/deploys)
+
 # flashMan-front
 
 This template should help get you started developing with Vue 3 in Vite.

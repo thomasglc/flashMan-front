@@ -1,3 +1,5 @@
+import type { BlocksContent } from "vue-strapi-blocks-renderer";
+
 interface Material {
     id: number;
     documentId: string;
@@ -20,7 +22,7 @@ export interface Maneuver {
     id: number;
     documentId: string;
     title: string;
-    description: string;
+    description: BlocksContent;
     maneuverCount: number;
     hasVictim: boolean;
     victimCount: number;

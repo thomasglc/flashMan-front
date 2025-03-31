@@ -14,7 +14,11 @@
                 <PreviousButton @click="router.back()"></PreviousButton>
                 <h1>{{ maneuver.title }}</h1>
                 <ManeuverAttributes :maneuver="maneuver" />
-                <p class="description">{{ maneuver.description }}</p>
+                <div class="description">
+
+                    <StrapiBlocks class="description" :content="maneuver.description" />
+                </div>
+
             </div>
         </div>
     </div>
@@ -32,6 +36,7 @@ import PreviousButton from '@/components/utils/PreviousButton.vue';
 import ManeuverAttributes from '@/components/ManeuverAttributes.vue';
 import SelectedFilters from '@/components/questionnaire/SelectedFilters.vue';
 import { useFiltersStore } from '@/stores/filtersStore';
+import { StrapiBlocks } from 'vue-strapi-blocks-renderer';
 
 const router = useRouter();
 const route = useRoute();
@@ -80,5 +85,9 @@ onMounted(() => {
     margin-top: 2rem;
     font-size: 1.1rem;
     line-height: 1.6;
+}
+
+.description {
+    margin-top: 2rem;
 }
 </style>

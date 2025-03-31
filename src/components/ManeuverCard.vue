@@ -17,6 +17,7 @@ import type { Maneuver } from '@/types/maneuver';
 import { useRouter } from 'vue-router';
 import ManeuverAttributes from './ManeuverAttributes.vue';
 import { computed } from 'vue';
+import { extractTextFromDescription } from '@/utils/extractwysiwyg';
 
 const router = useRouter();
 const props = defineProps<{
@@ -29,9 +30,10 @@ const navigateToDetail = () => {
 
 const truncatedDescription = computed(() => {
     if (props.maneuver.description) {
-        return props.maneuver.description.length > 100
-            ? props.maneuver.description.substring(0, 200) + "..."
-            : props.maneuver.description;
+        let desc = extractTextFromDescription(props.maneuver.description);
+        return desc.length > 100
+            ? desc.substring(0, 200) + "..."
+            : desc;
     }
     return '';
 });
