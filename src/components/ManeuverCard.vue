@@ -42,8 +42,8 @@ const truncatedDescription = computed(() => {
 <style scoped>
 .maneuver-card {
     cursor: pointer;
-    /* transition: all 0.3s;
-    animation: fade 0.5s; */
+    transition: all 0.3s;
+    /*animation: fade 0.5s; */
 }
 
 /*

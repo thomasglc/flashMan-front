@@ -15,9 +15,23 @@
             <div v-else-if="error" class="error">
                 <ErrorState :message="error" />
             </div>
-            <div v-else class="xl:flex">
+            <div v-else-if="hasManeuvers" class="xl:flex">
                 <ManeuverCard v-for="maneuver in maneuvers" :key="maneuver.id" :maneuver="maneuver" />
 
+            </div>
+            <div v-else-if="!hasManeuvers" class="flex justify-center py-12 m-5 ">
+                <div class="alert alert-warning alert-soft pt-5 pb-5">
+                    <div class="flex   ">
+                        <div class=" basis-1/4 flex justify-center items-center">
+                            <i class="fa fa-warning text-2xl"></i>
+                        </div>
+                        <div class="basis-3/4">
+                            <h3 class="font-bold">Aucune manœuvre trouvée</h3>
+                            <p>Aucune manœuvre ne correspond aux critères sélectionnés.</p>
+                            <p>Essayez de modifier vos filtres.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -30,7 +44,7 @@ import { maneuverService } from '@/services/maneuverService';
 import { useFiltersStore } from '@/stores/filtersStore';
 import type { ManeuverFilters } from '@/types/filters';
 import type { Maneuver } from '@/types/maneuver';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import ManeuverCard from './ManeuverCard.vue';
 import ManeuverQuestionnaire from './ManeuverQuestionnaire.vue';
 import SelectedFilters from './questionnaire/SelectedFilters.vue';
@@ -54,6 +68,10 @@ const fetchManeuvers = async () => {
         loading.value = false;
     }
 };
+
+const hasManeuvers = computed(() => {
+    return maneuvers.value.length === 0 ? false : true
+});
 
 const handleFiltersComplete = (filters: ManeuverFilters) => {
     filtersStore.setFilters(filters);
